@@ -248,6 +248,41 @@ body.obsidian-rule-background-enabled.is-phone .workspace-drawer {
     -webkit-backdrop-filter: brightness(0.85) blur(16px);
 }
 
+/* Simple mode: background image only -- strip the frosted-glass blur and
+   brightness, keeping sidebars and tabs lightly semi-transparent instead. */
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-split.mod-root .workspace-leaf-content,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-tab-header-container,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .status-bar,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple.is-mobile .workspace,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple.is-phone .workspace,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple.is-mobile .workspace-drawer,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple.is-phone .workspace-drawer {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-split.mod-left-split .workspace-leaf-content,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-split.mod-right-split .workspace-leaf-content,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple.is-mobile .workspace-drawer,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple.is-phone .workspace-drawer {
+    background-color: rgba(40, 39, 40, 0.35) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-split.mod-root .workspace-tab-header {
+    background-color: rgba(34, 34, 34, 0.25) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-split.mod-root .workspace-tab-header.is-active,
+body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-split.mod-root .workspace-tab-header-inner.is-active {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
 .obr-settings p.setting-item-description {
     margin-bottom: 1em;
     color: var(--text-muted);

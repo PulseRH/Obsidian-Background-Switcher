@@ -4,6 +4,7 @@ import { MarkdownView, Plugin, TFile, WorkspaceLeaf } from 'obsidian';
 import { BackgroundFillType, BackgroundImageRule, BackgroundRuleSettings, BackgroundSizeMode, BackgroundTarget, DEFAULT_SETTINGS, RuleType, SettingsTab } from './settingsTab';
 
 const BODY_CLASS = 'obsidian-rule-background-enabled';
+const SIMPLE_CLASS = 'obsidian-rule-background-simple';
 const NOTE_CLASS = 'obsidian-rule-note-background-enabled';
 const WHOLE_BACKGROUND_LAYER_CLASS = 'obsidian-rule-background-layer';
 const WHOLE_OVERLAY_LAYER_CLASS = 'obsidian-rule-background-overlay';
@@ -237,6 +238,7 @@ export default class BackgroundSwitcherPlugin extends Plugin {
         const overlayLayer = isNewBackground ? this.createWholeOverlayLayer() : this.ensureWholeOverlayLayer();
 
         body.classList.add(BODY_CLASS);
+        body.classList.toggle(SIMPLE_CLASS, this.settings.simpleMode);
         this.applyCssSettings(body, cssSettings);
         this.applyCssSettings(backgroundLayer, cssSettings);
         this.applyCssSettings(overlayLayer, cssSettings);
@@ -367,6 +369,7 @@ export default class BackgroundSwitcherPlugin extends Plugin {
     clearBackground() {
         const body = document.body;
         body.classList.remove(BODY_CLASS);
+        body.classList.remove(SIMPLE_CLASS);
         this.fadeOutWholeLayer(this.getWholeBackgroundLayer(), WHOLE_BACKGROUND_LAYER_EXIT_CLASS);
         this.fadeOutWholeLayer(this.getWholeOverlayLayer(), WHOLE_OVERLAY_LAYER_EXIT_CLASS);
         this.activeWholeSignature = '';

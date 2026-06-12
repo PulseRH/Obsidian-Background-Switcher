@@ -46,9 +46,11 @@ export interface BackgroundImageRule {
 
 export class BackgroundRuleSettings {
     backgroundRules: BackgroundImageRule[] = [];
+    simpleMode = false;
 }
 
 export const DEFAULT_SETTINGS: BackgroundRuleSettings = {
+    simpleMode: false,
     backgroundRules: [
         {
             id: "frontmatter-test-unsplash",
@@ -89,6 +91,18 @@ export class SettingsTab extends PluginSettingTab {
             text: 'Add rules to switch the whole Obsidian background image. Rules are matched in order--first match wins.',
             cls: 'setting-item-description'
         });
+
+        new Setting(containerEl)
+            .setName('Background image only')
+            .setDesc('Disable the extra transparency and frosted-glass blur. Shows just the background image and note background, with semi-transparent sidebars and tabs.')
+            .addToggle((toggle) => {
+                toggle
+                    .setValue(this.plugin.settings.simpleMode)
+                    .onChange((value) => {
+                        this.plugin.settings.simpleMode = value;
+                        void this.plugin.saveSettings();
+                    });
+            });
 
         const table = containerEl.createEl('div', { cls: 'obr-rules-table' });
         const rulesContainer = table.createEl('div', { cls: 'obr-rules-body' });
