@@ -248,15 +248,45 @@ body.obsidian-rule-background-enabled.is-phone .workspace-drawer {
     -webkit-backdrop-filter: brightness(0.85) blur(16px);
 }
 
-/* "Background image only": drop just the plugin's frosted-glass blur so only
-   the background image and note background show. The plugin's existing
-   semi-transparent fills on sidebars and tabs (and your own snippets) stay. */
-body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-leaf-content,
-body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-tab-header-container,
-body.obsidian-rule-background-enabled.obsidian-rule-background-simple .workspace-tab-header,
-body.obsidian-rule-background-enabled.obsidian-rule-background-simple .status-bar {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+/* "Background image only": a lean injection applied instead of the full
+   frosted styling. Just the background image showing through, semi-transparent
+   sidebars and tabs, and no blur. */
+body.obsidian-rule-background-simple {
+    --background-primary: transparent;
+    --background-secondary: transparent;
+    --background-secondary-alt: transparent;
+    --tab-container-background: transparent;
+    --titlebar-background: transparent;
+    --titlebar-background-focused: transparent;
+}
+
+body.obsidian-rule-background-simple .app-container {
+    position: relative;
+    z-index: 2;
+}
+
+body.obsidian-rule-background-simple .workspace,
+body.obsidian-rule-background-simple .workspace-split.mod-root,
+body.obsidian-rule-background-simple .workspace-split.mod-root .workspace-leaf,
+body.obsidian-rule-background-simple .workspace-split.mod-root .workspace-leaf-content,
+body.obsidian-rule-background-simple .view-content,
+body.obsidian-rule-background-simple .markdown-source-view,
+body.obsidian-rule-background-simple .markdown-preview-view,
+body.obsidian-rule-background-simple .cm-editor,
+body.obsidian-rule-background-simple .cm-scroller,
+body.obsidian-rule-background-simple .titlebar,
+body.obsidian-rule-background-simple .status-bar {
+    background: transparent !important;
+}
+
+body.obsidian-rule-background-simple .workspace-split.mod-left-split .workspace-leaf-content,
+body.obsidian-rule-background-simple .workspace-split.mod-right-split .workspace-leaf-content {
+    background-color: rgba(30, 30, 32, 0.4) !important;
+}
+
+body.obsidian-rule-background-simple .workspace-tab-header-container,
+body.obsidian-rule-background-simple .workspace-split.mod-root .workspace-tab-header {
+    background-color: rgba(30, 30, 32, 0.3) !important;
 }
 
 .obr-settings p.setting-item-description {

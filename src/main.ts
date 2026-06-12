@@ -237,7 +237,7 @@ export default class BackgroundSwitcherPlugin extends Plugin {
         const backgroundLayer = isNewBackground ? this.createWholeBackgroundLayer() : this.ensureWholeBackgroundLayer();
         const overlayLayer = isNewBackground ? this.createWholeOverlayLayer() : this.ensureWholeOverlayLayer();
 
-        body.classList.add(BODY_CLASS);
+        body.classList.toggle(BODY_CLASS, !this.settings.simpleMode);
         body.classList.toggle(SIMPLE_CLASS, this.settings.simpleMode);
         this.applyCssSettings(body, cssSettings);
         this.applyCssSettings(backgroundLayer, cssSettings);
