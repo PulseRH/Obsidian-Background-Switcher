@@ -1,7 +1,7 @@
 {
-    "name": "colorful-note-background",
+    "name": "background-switcher",
     "version": "1.0.6",
-    "description": "Set note background based on file location or frontmatter metadata.",
+    "description": "Switch the whole Obsidian background image based on file location or frontmatter metadata.",
     "main": "main.js",
     "scripts": {
         "dev": "node esbuild.config.mjs",
@@ -15,7 +15,7 @@
     },
     "keywords": [
         "obsidian",
-        "note-colors"
+        "background-image"
     ],
     "author": "rusi & andresgongora",
     "license": "MIT",

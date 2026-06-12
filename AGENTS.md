@@ -62,8 +62,8 @@
 ## Info
 <!------------------------------------------------------------------------------------------------->
 
-- **Purpose**: Obsidian plugin that applies colored backgrounds to notes based on folder location or frontmatter metadata, helping users visually distinguish and categorize their notes.
-- **Architecture**: Event-driven plugin that listens to workspace changes (active-leaf-change, metadata changes, file renames) and dynamically applies CSS styles to note backgrounds based on user-defined rules.
+- **Purpose**: Obsidian plugin that switches the whole workspace background image based on folder location or frontmatter metadata.
+- **Architecture**: Event-driven plugin that listens to workspace changes (active-leaf-change, metadata changes, file renames) and applies CSS variables to `body` for the first matching image rule.
 - **Language**: TypeScript
 - **Target platforms**: Obsidian (desktop and mobile)
 
@@ -72,9 +72,9 @@
 <!------------------------------------------------------------------------------------------------->
 
 - **Code organization**: Main plugin logic in `src/main.ts`, settings UI in `src/settingsTab.ts`
-- **Styling approach**: Avoid dynamic `<style>` tags. Use `.cnb-highlighted` class with CSS custom property `--cnb-highlight-color` set inline; base rules live in `styles.css`.
+- **Styling approach**: Avoid dynamic `<style>` tags. Use `body.obsidian-rule-background-enabled` with CSS custom properties set inline; base rules live in `styles.css`.
 - **Rule matching**: Folder rules match any folder in the path; frontmatter rules match metadata key-value pairs
-- **Color format**: Use RGBA with alpha transparency (recommended: 0.04) for smooth theme transitions
+- **Rule result**: Rules store an image URL or file path, plus optional overlay/position/filter defaults.
 
 <!------------------------------------------------------------------------------------------------->
 ## Tools
@@ -92,6 +92,15 @@
 <!------------------------------------------------------------------------------------------------->
 ## Scratchpad
 <!------------------------------------------------------------------------------------------------->
+
+<!-- SCRATCHPAD BLOCK: Background Switcher Conversion | Created: 2026-05-23 -->
+**Current direction:**
+- This repo was converted from per-note color backgrounds to rule-based whole-workspace image backgrounds.
+- Rules remain folder/frontmatter based and first match wins.
+- `src/main.ts` applies matched rule images to `body` with `body.obsidian-rule-background-enabled` and `--obs-rule-bg-*` CSS variables.
+- `src/settingsTab.ts` keeps the table UI but replaces color/alpha with image URL or file path plus overlay.
+- `styles.css` makes Obsidian chrome transparent and renders the image through `body::before`.
+<!-- END SCRATCHPAD BLOCK -->
 
 <!-- SCRATCHPAD BLOCK: Project Structure | Created: 2026-01-20 -->
 **Key Files:**

@@ -1,75 +1,400 @@
-/* Colorful Note Background - highlight style using CSS custom property */
-.cnb-highlighted {
-    background:
-        linear-gradient(var(--cnb-highlight-color), var(--cnb-highlight-color)),
-        var(--background-secondary);
-    background-blend-mode: normal;
+body.obsidian-rule-background-enabled {
+    --background-primary: transparent;
+    --background-secondary: transparent;
+    --background-secondary-alt: transparent;
+    --titlebar-background: transparent;
+    --titlebar-background-focused: transparent;
+    --tab-container-background: transparent;
+    --notice-background: transparent;
 }
 
-/* Settings panel */
-.cnb-settings p.setting-item-description {
+.obsidian-rule-background-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    contain: strict;
+    animation: obsidian-rule-bg-fade-in 420ms ease both;
+}
+
+.obsidian-rule-background-layer-exit {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    contain: strict;
+    animation: obsidian-rule-bg-fade-out 420ms ease both;
+}
+
+.obsidian-rule-background-layer::before,
+.obsidian-rule-background-layer-exit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--obs-rule-bg-fill);
+    background-position: var(--obs-rule-bg-pos-x) var(--obs-rule-bg-pos-y);
+    background-repeat: no-repeat;
+    background-size: var(--obs-rule-bg-size);
+    filter:
+        saturate(var(--obs-rule-bg-saturate))
+        brightness(var(--obs-rule-bg-brightness));
+    transform: scale(var(--obs-rule-bg-zoom));
+    transform-origin: var(--obs-rule-bg-pos-x) var(--obs-rule-bg-pos-y);
+    will-change: transform;
+}
+
+.obsidian-rule-background-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: rgba(0, 0, 0, var(--obs-rule-bg-overlay-opacity));
+    animation: obsidian-rule-bg-fade-in 420ms ease both;
+}
+
+.obsidian-rule-background-overlay-exit {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: rgba(0, 0, 0, var(--obs-rule-bg-overlay-opacity));
+    animation: obsidian-rule-bg-fade-out 420ms ease both;
+}
+
+@keyframes obsidian-rule-bg-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes obsidian-rule-bg-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.obsidian-rule-note-background-enabled {
+    position: relative;
+    background: transparent !important;
+    isolation: isolate;
+}
+
+.obsidian-rule-note-background-enabled::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--obs-rule-bg-fill);
+    background-position: var(--obs-rule-bg-pos-x) var(--obs-rule-bg-pos-y);
+    background-repeat: no-repeat;
+    background-size: var(--obs-rule-bg-size);
+    filter:
+        saturate(var(--obs-rule-bg-saturate))
+        brightness(var(--obs-rule-bg-brightness));
+    transform: scale(var(--obs-rule-bg-zoom));
+    transform-origin: var(--obs-rule-bg-pos-x) var(--obs-rule-bg-pos-y);
+}
+
+.obsidian-rule-note-background-enabled::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: rgba(0, 0, 0, var(--obs-rule-bg-overlay-opacity));
+}
+
+.obsidian-rule-note-background-enabled > * {
+    position: relative;
+    z-index: 1;
+}
+
+.obsidian-rule-note-background-fade::before,
+.obsidian-rule-note-background-fade::after {
+    animation: obsidian-rule-bg-fade-in 320ms ease both;
+}
+
+.obsidian-rule-note-background-exit::before,
+.obsidian-rule-note-background-exit::after {
+    animation: obsidian-rule-bg-fade-out 420ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .obsidian-rule-background-layer,
+    .obsidian-rule-background-layer-exit,
+    .obsidian-rule-background-overlay,
+    .obsidian-rule-background-overlay-exit,
+    .obsidian-rule-note-background-fade::before,
+    .obsidian-rule-note-background-fade::after,
+    .obsidian-rule-note-background-exit::before,
+    .obsidian-rule-note-background-exit::after {
+        animation-duration: 1ms;
+    }
+}
+
+body.obsidian-rule-background-enabled .app-container {
+    position: relative;
+    z-index: 2;
+}
+
+body.obsidian-rule-background-enabled,
+body.obsidian-rule-background-enabled .app-container,
+body.obsidian-rule-background-enabled .horizontal-main-container,
+body.obsidian-rule-background-enabled .workspace,
+body.obsidian-rule-background-enabled .workspace-split,
+body.obsidian-rule-background-enabled .workspace-split.mod-root,
+body.obsidian-rule-background-enabled .workspace-tabs,
+body.obsidian-rule-background-enabled .workspace-tab-container,
+body.obsidian-rule-background-enabled .workspace-leaf,
+body.obsidian-rule-background-enabled .view-content,
+body.obsidian-rule-background-enabled .markdown-source-view,
+body.obsidian-rule-background-enabled .markdown-preview-view,
+body.obsidian-rule-background-enabled .cm-editor,
+body.obsidian-rule-background-enabled .cm-scroller,
+body.obsidian-rule-background-enabled .titlebar,
+body.obsidian-rule-background-enabled .titlebar-inner,
+body.obsidian-rule-background-enabled .titlebar-button-container,
+body.obsidian-rule-background-enabled .workspace-ribbon,
+body.obsidian-rule-background-enabled .side-dock-ribbon,
+body.obsidian-rule-background-enabled .sidebar-toggle-button {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+body.obsidian-rule-background-enabled .workspace-split.mod-root .workspace-leaf-content {
+    backdrop-filter: brightness(0.9) blur(5px);
+    -webkit-backdrop-filter: brightness(0.9) blur(5px);
+}
+
+body.obsidian-rule-background-enabled .workspace-split.mod-left-split .workspace-leaf-content,
+body.obsidian-rule-background-enabled .workspace-split.mod-right-split .workspace-leaf-content {
+    background-color: rgba(40, 39, 40, 0.2) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+body.obsidian-rule-background-enabled .workspace-tab-header-container {
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: brightness(0.9) blur(5px);
+    -webkit-backdrop-filter: brightness(0.9) blur(5px);
+}
+
+body.obsidian-rule-background-enabled .workspace-split.mod-root .workspace-tab-header {
+    background-color: rgba(34, 34, 34, 0.2) !important;
+    backdrop-filter: brightness(0.7) blur(40px);
+    -webkit-backdrop-filter: brightness(0.7) blur(40px);
+}
+
+body.obsidian-rule-background-enabled .workspace-split.mod-root .workspace-tab-header.is-active,
+body.obsidian-rule-background-enabled .workspace-split.mod-root .workspace-tab-header-inner.is-active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: brightness(0.8) blur(20px);
+    -webkit-backdrop-filter: brightness(0.8) blur(20px);
+}
+
+body.obsidian-rule-background-enabled .status-bar {
+    background-color: transparent !important;
+    border: none !important;
+    backdrop-filter: brightness(0.7) blur(15px);
+    -webkit-backdrop-filter: brightness(0.7) blur(15px);
+}
+
+body.obsidian-rule-background-enabled.is-mobile .workspace,
+body.obsidian-rule-background-enabled.is-phone .workspace {
+    background-color: transparent !important;
+    backdrop-filter: brightness(0.8) blur(5px);
+    -webkit-backdrop-filter: brightness(0.8) blur(5px);
+}
+
+body.obsidian-rule-background-enabled.is-mobile .app-container,
+body.obsidian-rule-background-enabled.is-mobile .mobile-navbar,
+body.obsidian-rule-background-enabled.is-mobile .mobile-toolbar,
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer,
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer-inner,
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer-ribbon,
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer-active-tab-container,
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer-tab-container,
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer-header,
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer-vault-switcher,
+body.obsidian-rule-background-enabled.is-mobile .nav-files-container,
+body.obsidian-rule-background-enabled.is-phone .app-container,
+body.obsidian-rule-background-enabled.is-phone .mobile-navbar,
+body.obsidian-rule-background-enabled.is-phone .mobile-toolbar,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer-inner,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer-ribbon,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer-active-tab-container,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer-tab-container,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer-header,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer-vault-switcher,
+body.obsidian-rule-background-enabled.is-phone .nav-files-container {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+body.obsidian-rule-background-enabled.is-mobile .workspace-drawer,
+body.obsidian-rule-background-enabled.is-phone .workspace-drawer {
+    backdrop-filter: brightness(0.85) blur(16px);
+    -webkit-backdrop-filter: brightness(0.85) blur(16px);
+}
+
+.obr-settings p.setting-item-description {
     margin-bottom: 1em;
     color: var(--text-muted);
 }
 
-.cnb-rules-table {
+.obr-rules-table {
     margin-bottom: 1em;
 }
 
-.cnb-rules-header,
-.cnb-rule-row {
-    display: grid;
-    grid-template-columns: 7em minmax(8em, 1fr) 8em 4em 4.5em 2em;
-    gap: 0.5em;
-    align-items: center;
-    padding: 0.4em 0;
-}
-
-.cnb-rules-header {
-    font-weight: 600;
-    font-size: var(--font-ui-smaller);
-    color: var(--text-muted);
+.obr-rule-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    padding: 0.85em 0;
     border-bottom: 1px solid var(--background-modifier-border);
-    padding-bottom: 0.5em;
-    margin-bottom: 0.25em;
 }
 
-.cnb-rule-row:hover {
-    background: var(--background-modifier-hover);
+.obr-rule-line {
+    display: grid;
+    gap: 0.5em;
+    align-items: start;
+}
+
+.obr-rule-line-top {
+    grid-template-columns: 7em minmax(10em, 1fr) 6em 6.5em minmax(14em, 1.4fr);
+}
+
+.obr-rule-line-bottom {
+    grid-template-columns: minmax(20em, 1fr) minmax(10em, 14em) 6em 4.5em;
+}
+
+.obr-rule-line-bottom.obr-rule-line-simple {
+    grid-template-columns: 6em 4.5em;
+    justify-content: end;
+}
+
+.obr-rule-row:hover {
     border-radius: var(--radius-s);
+    background: var(--background-modifier-hover);
 }
 
-.cnb-cell {
+.obr-cell {
     display: flex;
     align-items: center;
-    gap: 0.25em;
+    gap: 0.35em;
+    min-width: 0;
 }
 
-.cnb-cell input[type="text"],
-.cnb-cell .dropdown {
+.obr-field-label {
+    display: none;
+}
+
+.obr-rule-line-bottom .obr-field-label {
+    display: inline-flex;
+    flex: 0 0 auto;
+    color: var(--text-muted);
+    font-size: var(--font-ui-smaller);
+    font-weight: 600;
+}
+
+.obr-cell input[type="text"],
+.obr-cell .dropdown {
     width: 100%;
 }
 
-.cnb-color-cell {
+.obr-image-cell {
     gap: 0.5em;
 }
 
-.cnb-color-input {
-    width: 5.5em !important;
+.obr-layout-cell {
+    flex-wrap: nowrap;
+    gap: 0.35em;
+}
+
+.obr-mini-number {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+    color: var(--text-muted);
+    font-size: var(--font-ui-smaller);
+}
+
+.obr-mini-number input {
+    width: 3.4em !important;
+    text-align: center;
+}
+
+.obr-unit-suffix {
+    min-width: 1em;
+    color: var(--text-faint);
+    font-size: var(--font-ui-smaller);
+    font-weight: 400;
+    opacity: 0.65;
+}
+
+.obr-image-input {
+    width: 100% !important;
+    font-size: var(--font-ui-smaller);
+}
+
+.obr-color-input {
+    width: 6em !important;
     font-family: var(--font-monospace);
     font-size: var(--font-ui-smaller);
 }
 
-.cnb-alpha-input {
-    width: 100% !important;
-    text-align: center;
+.obr-overlay-value {
+    min-width: 2.75em;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
 }
 
-.cnb-priority-cell {
+.obr-cell .slider {
+    min-width: 4.5em;
+}
+
+.obr-priority-cell {
     gap: 0.125em;
 }
 
-.cnb-priority-cell button,
-.cnb-delete-cell button {
+.obr-priority-cell .obr-field-label,
+.obr-delete-cell .obr-field-label {
+    display: none;
+}
+
+.obr-priority-cell button,
+.obr-delete-cell button {
     padding: 4px 6px;
+}
+
+.obr-file-input {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .obr-rule-line-top,
+    .obr-rule-line-bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .obr-field-label,
+    .obr-rule-line-bottom .obr-field-label {
+        display: inline-flex;
+        flex: 0 0 7em;
+        color: var(--text-muted);
+        font-size: var(--font-ui-smaller);
+        font-weight: 600;
+    }
 }

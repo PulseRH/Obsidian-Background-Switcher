@@ -1,9 +1,9 @@
 {
-	"id": "colorful-note-background",
-	"name": "Colorful Note Background",
+	"id": "background-switcher",
+	"name": "Background Switcher",
 	"version": "1.0.6",
 	"minAppVersion": "0.15.0",
-	"description": "Set note background based on file location or frontmatter metadata.",
-	"author": "andresgongora",
+	"description": "Switch the whole Obsidian background image based on file location or frontmatter metadata.",
+	"author": "Loz",
 	"isDesktopOnly": false
 }
